@@ -264,12 +264,18 @@ export const create = config => {
     const response = isError ? axiosError.response : axiosResponse
     const status = (response && response.status) || null
     const statusText = (response && response.statusText) || null
-    const problem = isError ? getProblemFromError(axiosResult) : getProblemFromStatus(status)
+    const problem = isError
+      ? getProblemFromError(axiosResult)
+      : response && response.statusText
+      ? response.statusText
+      : getProblemFromStatus(status)
     const originalError = isError ? axiosError : null
     const ok = in200s(status)
     const config = axiosResult.config || null
     const headers = (response && response.headers) || null
     let data = (response && response.data) || null
+
+    if (response) console.log(response.statusText)
 
     // give an opportunity for anything to the response transforms to change stuff along the way
     let transformedResponse = {
