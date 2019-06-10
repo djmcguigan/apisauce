@@ -263,7 +263,7 @@ export const create = config => {
     const axiosError = axiosResult as AxiosError
     const response = isError ? axiosError.response : axiosResponse
     const status = (response && response.status) || null
-    const statusText = axiosResponse.statusText || null
+    const statusText = (response && response.statusText) || null
     const problem = isError ? getProblemFromError(axiosResult) : getProblemFromStatus(status)
     const originalError = isError ? axiosError : null
     const ok = in200s(status)
