@@ -270,6 +270,7 @@ export const create = config => {
       ? response.statusText
       : getProblemFromStatus(status)
     const originalError = isError ? axiosError : null
+    const originalResponse = isError ? null : axiosResponse;
     const ok = in200s(status)
     const config = axiosResult.config || null
     const headers = (response && response.headers) || null
@@ -282,6 +283,7 @@ export const create = config => {
       duration,
       problem,
       originalError,
+      originalResponse,
       ok,
       status,
       statusText,
